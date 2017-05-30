@@ -1,0 +1,72 @@
+group 'cn.earthchen'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+def pFile = file("gradle.properties")
+
+// 读取config文件夹中对应的配置文件
+ext{
+    def prop = new Properties();
+    file("./gradle.properties")
+            .withInputStream {
+        prop.load(it)
+    }
+/*
+    file("src/main/resources/config/mybatis/jdbc-mysql.properties")
+            .withInputStream {
+        prop.load(it)
+    }
+    file("src/main/resources/config/mybatis/gradle.properties")
+            .withInputStream {
+        prop.load(it)
+    }
+    prop.each {
+        project.extensions.add("$it.key",it.value);
+    }*/
+}
+
+dependencies {
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "com.h2database:h2:$h2Version"
+    compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+    compile "org.apache.commons:commons-lang3:$commonsLangVersion"
+
+    compile "javax.servlet:jstl:$jstlVersion"
+    providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+    providedCompile "javax.servlet.jsp:jsp-api:$jspApiVersion"
+    providedCompile "javax.el:javax.el-api:$jspElVersion"
+
+    testCompile "junit:junit-dep:$junitVersion"
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+}
+
+repositories {
+    //mavenLocal()
+    maven { url 'http://maven.springframework.org/release' }
+    maven { url 'http://maven.springframework.org/release' }
+    maven { url 'http://maven.springframework.org/milestone' }
+    maven { url 'http://maven.springframework.org/snapshot' }
+    maven { url 'http://download.java.net/maven/2' }
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
+
+war {
+    baseName = 'spittr'
+}
+

@@ -1,0 +1,14 @@
+#spring mvc
+.idea/
+lib/
+out/
+
+#spring mvc  maven
+.idea/
+target/
+
+#spring mvc gradle
+.gradle/
+.idea/
+build/
+
