@@ -9,24 +9,13 @@ sourceCompatibility = 1.8
 def pFile = file("gradle.properties")
 
 // 读取config文件夹中对应的配置文件
-ext{
+ext {
     def prop = new Properties();
     file("./gradle.properties")
             .withInputStream {
         prop.load(it)
     }
-/*
-    file("src/main/resources/config/mybatis/jdbc-mysql.properties")
-            .withInputStream {
-        prop.load(it)
-    }
-    file("src/main/resources/config/mybatis/gradle.properties")
-            .withInputStream {
-        prop.load(it)
-    }
-    prop.each {
-        project.extensions.add("$it.key",it.value);
-    }*/
+
 }
 
 dependencies {
